@@ -1,0 +1,25 @@
+Programul nostru primeste ca date de intrare (dintr-un fisier) in format csv forma (T, X, Z, Y, C, O) pe care trebuie sa o contruim, astfel:
+  -T (tipul piesei care initial e 0):
+          0 piesa 1x1
+          1 piesa 1x2
+          2 piesa 1x3
+          3 piesa 1x4
+          4 piesa 1x6
+          5 piesa 1x8
+          6 piesa 2x2
+          7 piesa 2x3
+          8 piesa 2x4
+          9 piesa 2x6
+         10 piesa 2x8
+  -X, coordonata X (orizontala)
+  
+  -Z, coordonata Z (verticala)
+  
+  -Y, coordonata Y (inaltime)
+  
+  -C, un numar in hex reprezentand culoarea piesei
+  
+  -O, orientarea piesei. 
+        0 piesa e pusa normal
+        1 piesa e rotita cu 90 de grade
+        
