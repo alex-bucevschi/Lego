@@ -32,7 +32,7 @@ Programul nostru primește ca date de intrare (dintr-un fișier) în format CSV 
           -pentru toate nivelele figurii de la bază înspre vârf:
             -parcurgem matricea nivelului curent
                 -dacă piesa curentă nu este deja ocupată de o piesă pusă anterior construim o nouă piesă, alftel continuăm
-                -dacă putem pune o piesă încercăm să o punem astfel încât să creștem cât mai mult stabilitatea piesei
+                -dacă putem pune o piesă încercăm să o punem astfel încât să creștem cât mai mult stabilitatea structurii
                 
     Obiectele:
       Pentru a putea reține și manipula cât mai ușor figura avem următoarele clase:
@@ -51,7 +51,7 @@ Programul nostru primește ca date de intrare (dintr-un fișier) în format CSV 
             -int columns (numărul de coloane)
           E o Matrice "Smart" deoarece avem metode de Get atât pentru linii cât și pentru coloane
         
-        3) Clasa SmartBCM reprezintă de fapt algoritmul nostru ( Buce[vschi]CosminMădălin) cu câmpurileȘ
+        3) Clasa SmartBCM reprezintă de fapt algoritmul nostru ( Buce[vschi]CosminMădălin) cu câmpurile:
             -Form form (figura finală)
             -Map<Integer, Integer> formTypes 
             -Map<Integer, int[]> bricks (tipurile de piese pe care le avem la dispoziție)
