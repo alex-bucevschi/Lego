@@ -52,18 +52,29 @@ public class SmartBCM {
     private Piece getMyReplacer(Integer level, int line, int column){
         Piece currentPiece = form.getLevel(level).get(line,column);
         if(currentPiece == null) return null;
-            for(int i = 10; i>=1; i--){
-                    int val = formCanBePlaced(level, currentPiece, i, line, column);
-                    if (val == 0) {
-                        currentPiece.setId(i);
-                        currentPiece.setOrientation(0);
-                        return currentPiece;
-                    } else if (val == 1) {
-                        currentPiece.setId(i);
-                        currentPiece.setOrientation(1);
-                        return currentPiece;
-                    }
+        List<Integer> pieces = new ArrayList<>();
+        pieces.addAll(bricks.keySet());
+        pieces.sort(new Comparator<Integer>() {
+            @Override
+            public int compare(Integer o1, Integer o2) {
+                return o2.compareTo(o1);
             }
+        });
+
+
+        for(int i = 10; i>0; i--){
+            Integer elem = i;//pieces.get(i);
+            int val = formCanBePlaced(level, currentPiece, elem, line, column);
+            if (val == 0) {
+                currentPiece.setId(elem);
+                currentPiece.setOrientation(0);
+                return currentPiece;
+            } else if (val == 1) {
+                currentPiece.setId(elem);
+                currentPiece.setOrientation(1);
+                return currentPiece;
+            }
+        }
         unu(level, line, column);
         return null;
     }
@@ -122,13 +133,10 @@ public class SmartBCM {
                 if(orientation == -1 || orientation == 0) {
                     Vector<Piece> currentLine = this.form.getLevel(level).getLine(line);
                     List<Piece> lineList = currentLine.subList(currentPiece.getZ(), currentPiece.getZ() + myForm[1]);
-//                    System.out.println(currentLine);
-//                    System.out.println(lineList);
-//                    System.out.println('\n');
                     int cnt = 0;
                     for (Piece p : lineList) {
 
-                        if (p == null || p.getId() == -1) return -1;;
+                        if (p == null || p.getId() == -1 || p.getColor().equals("#000000")) return -1;;
                         cnt++;
                     }
                     if (cnt == lineList.size()) {
@@ -148,13 +156,10 @@ public class SmartBCM {
                     Vector<Piece> currentColumn = this.form.getLevel(level).getColumn(column);
                     if(currentPiece.getX()+ myForm[1] >= currentColumn.size()) return -1;
                     List<Piece> columnList = currentColumn.subList(currentPiece.getX(), currentPiece.getX() + myForm[1]);
-//                    System.out.println(currentColumn);
-//                    System.out.println(columnList);
-//                    System.out.println('\n');
                     int cnt = 0;
                     cnt = 0;
                     for (Piece p : columnList) {
-                        if (p == null || p.getId() == -1) return -1;;
+                        if (p == null || p.getId() == -1 || p.getColor().equals("#000000")) return -1;;
                         cnt++;
                     }
                     if (cnt == columnList.size()) {
@@ -175,25 +180,15 @@ public class SmartBCM {
                     Vector<Piece> currentLine = this.form.getLevel(level).getLine(line);
                     Vector<Piece> nextLine = this.form.getLevel(level).getLine(line + 1);
                     if (nextLine == null) return -1;
-//                    System.out.println(currentPiece.getZ() + " " + (currentPiece.getZ() + myForm[1]) + " -> " + myForm[0] + " " + myForm[1]);
-//                    System.out.println(currentLine);
-//                    System.out.println(nextLine);
                     List<Piece> lineList = currentLine.subList(currentPiece.getZ(), currentPiece.getZ() + myForm[1]);
-
                     List<Piece> nextLineList = nextLine.subList(currentPiece.getZ(), currentPiece.getZ() + myForm[1]);
-
-//                    System.out.println(currentLine);
-//                    System.out.println(nextLine);
-//                    System.out.println(lineList);
-//                    System.out.println(nextLineList);
-//                    System.out.println('\n');
                     int cnt1 = 0, cnt2 = 0;
                     for (Piece p : lineList) {
-                        if (p == null || p.getId() == -1) return -1;;
+                        if (p == null || p.getId() == -1 || p.getColor().equals("#000000")) return -1;;
                         cnt1++;
                     }
                     for (Piece p : nextLineList) {
-                        if (p == null || p.getId() == -1) return -1;;
+                        if (p == null || p.getId() == -1 || p.getColor().equals("#000000")) return -1;;
                         cnt2++;
                     }
                     if (cnt1 == lineList.size() && cnt2 == nextLineList.size() && cnt1 == cnt2) {
@@ -220,27 +215,18 @@ public class SmartBCM {
                     int cnt1 = 0, cnt2 = 0;
                     Vector<Piece> currentColumn = this.form.getLevel(level).getColumn(column);
                     Vector<Piece> nextCurrentColumn = this.form.getLevel(level).getColumn(column + 1);
-//                    System.out.println("MUIE " + currentColumn);
-//                    System.out.println("MUIE " + nextCurrentColumn);
-//                    System.out.println(currentPiece.getX()+ " " +  myForm[1] + "  " + currentColumn.size());
                     if (nextCurrentColumn == null) return -1;
                     if(currentPiece.getX()+ myForm[1] >= currentColumn.size()) return -1;
                     List<Piece> columnList = currentColumn.subList(currentPiece.getX(), currentPiece.getX() + myForm[1]);
                     List<Piece> nextColumnList = nextCurrentColumn.subList(currentPiece.getX(), currentPiece.getX() + myForm[1]);
-
-//                    System.out.println(currentColumn);
-//                    System.out.println(nextCurrentColumn);
-//                    System.out.println(columnList);
-//                    System.out.println(nextColumnList);
-//                    System.out.println('\n');
                     cnt1 = 0;
                     cnt2 = 0;
                     for (Piece p : columnList) {
-                        if (p == null || p.getId() == -1) return -1;;
+                        if (p == null || p.getId() == -1 || p.getColor().equals("#000000")) return -1;;
                         cnt1++;
                     }
                     for (Piece p : nextColumnList) {
-                        if (p == null || p.getId() == -1) return -1;
+                        if (p == null || p.getId() == -1 || p.getColor().equals("#000000")) return -1;
                         cnt2++;
                     }
                     if (cnt1 == columnList.size() && cnt2 == nextColumnList.size() && cnt1 == cnt2) {
@@ -328,34 +314,42 @@ public class SmartBCM {
 
     private void computeBCM(int level){
         if(level > form.getLength()) return;
-        for(int x = 0; x < form.getLevel(level).getLines(); x++){
-            for(int y = 0; y < form.getLevel(level).getColumns(); y++){
+        try {
+            System.out.println("DEBUG -> " + form.getLength() + " " + level + " " + form.getLevel(level).getLines());
+            for (int x = 0; x < form.getLevel(level).getLines(); x++) {
+                for (int y = 0; y < form.getLevel(level).getColumns(); y++) {
 
-                Piece currentPiece = form.getLevel(level).get(x, y);
-                if(currentPiece != null && currentPiece.getId() != -1){
-                    Piece replacer = getMyReplacer(level, x, y);
-                    if(replacer != null){
-                        unu(level, x, y);
-                        form.getLevel(level).update(x,y,replacer);
+                    Piece currentPiece = form.getLevel(level).get(x, y);
+                    if (currentPiece != null && currentPiece.getId() != -1 && !currentPiece.getColor().equals("#000000")) {
+                        Piece replacer = getMyReplacer(level, x, y);
+                        if (replacer != null) {
+                            unu(level, x, y);
+                            form.getLevel(level).update(x, y, replacer);
+                        }
                     }
                 }
             }
+        }catch (Exception e){
+            e.printStackTrace();
         }
     }
 
     public void fillMatrix(){
-        for(int i = 0; i<= form.getLength();i++){
-            int level = i;
-            for(int x = 0; x < form.getLevel(level).getLines(); x++){
-                for(int y = 0; y < form.getLevel(level).getColumns(); y++){
-                    Piece currentPiece = form.getLevel(level).get(x, y);
-                    if(currentPiece == null ){
-                        fillEmptySpaces(level, x, y);
+        try {
+            for (int i = 0; i <= form.getLength(); i++) {
+                int level = i;
+                for (int x = 0; x < form.getLevel(level).getLines(); x++) {
+                    for (int y = 0; y < form.getLevel(level).getColumns(); y++) {
+                        Piece currentPiece = form.getLevel(level).get(x, y);
+                        if (currentPiece == null) {
+                            fillEmptySpaces(level, x, y);
+                        }
                     }
                 }
             }
+        }catch (Exception e){
+            e.printStackTrace();
         }
-
     }
 
     public void solve(){

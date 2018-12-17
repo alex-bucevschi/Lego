@@ -30,6 +30,7 @@ public class Main {
     public static void startBKT(){
         //generateForm(2, "form.csv");
         Form form = SolutionWriter.readForm("form.csv");
+        //SolutionWriter.formWrite("shit", form);
         if(form == null) return;
         form.print(1);
         Map<Integer, Integer> formTypes = new HashMap<>();
@@ -49,7 +50,7 @@ public class Main {
         smartBKT_1.solve();
         Form solvedForm = smartBKT_1.getResult();
         //solvedForm.print(solvedForm.getLength() - 2);
-        solvedForm.print(1);
+        solvedForm.print(23);
         SolutionWriter.formWrite("input", solvedForm);
     }
 

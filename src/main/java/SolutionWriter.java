@@ -26,7 +26,7 @@ public class SolutionWriter {
                     }
                 }
             }
-            fw.write('\n');
+            //fw.write('\n');
 
 
             fw.close();
@@ -73,16 +73,10 @@ public class SolutionWriter {
                 try{
                     int x=Integer.valueOf(listOfParams[1]),z=Integer.valueOf(listOfParams[2]), y=Integer.valueOf(listOfParams[3]);
 
-                    String color;
-                    if(x>5 && x<29 && y>8 && y<20){
-                        color = "#FF0000";
-                    }else if(z < 4){
-                        color = "#FFFF00";
-                    }else{
-                        color = "#0000FF";
-                    }
+                    String color = listOfParams[4];
+
                     Piece piece = new Piece(0, x, z,y, color, 0);
-                   // if(z < 8)
+                    //if(z < 5)
                         form.addPiece(Integer.valueOf(listOfParams[2]), piece);
                 }catch (Exception e){
                     e.printStackTrace();

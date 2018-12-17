@@ -110,13 +110,13 @@ public class Piece {
 
     @Override
     public String toString() {
-        return  x + "," + z + "," + y + "("+id+","+orientation+")";
+        return  x + "," + z + "," + y + "("+id+","+orientation+ "," +  color + ")";
     }
 
     public String toPrint(){
         if(id == -1) return null;
 //        if(id >= 6)
 //            return id + ", " + x + ", " + y + ", " + (z+1) + ", " + color + ", " +orientation;
-        return id + ", " + x + ", " + y + ", " + z + ", " + color + ", " +orientation;
+        return id + ", " + x + ", " + (y-1) + ", " + z + ", " + color + ", " +orientation;
     }
 }
