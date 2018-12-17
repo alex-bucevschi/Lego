@@ -1,5 +1,5 @@
-Programul nostru primeste ca date de intrare (dintr-un fisier) in format csv forma (T, X, Z, Y, C, O) pe care trebuie sa o contruim, astfel:
-  -T (tipul piesei care initial e 0):
+Programul nostru primește ca date de intrare (dintr-un fișier) în format CSV forma (T, X, Z, Y, C, O) pe care trebuie să o contruim, astfel:
+  -T (tipul piesei care inițial e 0 pentru toate piesele):
           0 piesa 1x1
           1 piesa 1x2
           2 piesa 1x3
@@ -11,15 +11,49 @@ Programul nostru primeste ca date de intrare (dintr-un fisier) in format csv for
           8 piesa 2x4
           9 piesa 2x6
          10 piesa 2x8
-  -X, coordonata X (orizontala)
+  -X, coordonata X (orizontală)
   
-  -Z, coordonata Z (verticala)
+  -Z, coordonata Z (înălțime)
   
-  -Y, coordonata Y (inaltime)
+  -Y, coordonata Y (verticală)
   
-  -C, un numar in hex reprezentand culoarea piesei
+  -C, un string reprezentând codul în hexadecimal pentru culoarea piesei
   
   -O, orientarea piesei. 
-        0 piesa e pusa normal
-        1 piesa e rotita cu 90 de grade
+        0 piesa e pusă normal
+        1 piesa e rotită cu 90 de grade
         
+        
+    Algoritmul:
+        Algoritmul nostru construiește figura finală unind piesele de 1x1 de pe fiecare nivel încercând să unească piesele într-o piesa cât mai mare pentru a crește stabilitatea stucturii.
+        Deci, avem o sortare descrescăoare a pieselor și în cel mai rău caz o să rămână o piese de 1x1.
+        Pentru a crește stabilitatea ne mai uităm la nivelul anterior și încercăm să punem piesa curenta cu orientare diferită de piesa\piesele de sub ea "sudând" astfel unele spații goale de la nivelul anterior.
+        Deci algoritmul nostru ar fi:
+          -pentru toate nivelele figurii de la bază înspre vârf:
+            -parcurgem matricea nivelului curent
+                -dacă piesa curentă nu este deja ocupată de o piesă pusă anterior construim o nouă piesă, alftel continuăm
+                -dacă putem pune o piesă încercăm să o punem astfel încât să creștem cât mai mult stabilitatea piesei
+                
+    Obiectele:
+      Pentru a putea reține și manipula cât mai ușor figura avem următoarele clase:
+        
+        1) Clasa Piece cu următoarele câmpuri:  (am enumerat mai sus, la date de intrare tipurile pieselor
+            -int id (care e tipul piesei și poate fi intre 0 și 10)
+            -int x (coordonata pe orizontală)
+            -int y (coordonata pe verticală)
+            -int z (coordonata pe înălțime)
+            -string color (culoarea piesei)
+            -int orientation (orientarea piesei)
+            
+        2) Clasa SmartMatrix cu câmpurile:
+            -Vector<Vector<T>>  matrix (matricea corescpunzătoare unui nivel)
+            -int lines (numărul de linii)
+            -int columns (numărul de coloane)
+          E o Matrice "Smart" deoarece avem metode de Get atât pentru linii cât și pentru coloane
+        
+        3) Clasa SmartBCM reprezintă de fapt algoritmul nostru ( Buce[vschi]CosminMădălin) cu câmpurileȘ
+            -Form form (figura finală)
+            -Map<Integer, Integer> formTypes 
+            -Map<Integer, int[]> bricks (tipurile de piese pe care le avem la dispoziție)
+            
+ 
